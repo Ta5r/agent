@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Support Agent - Developer Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (from CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon"><i data-lucide="bot"></i></div>
+                <div class="logo-text">
+                    <h1>Quantum Tech Co.</h1>
+                    <span>Customer Support AI Agent Workspace</span>
+                </div>
+            </div>
+            <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span>System Agent Online</span>
+            </div>
+        </header>
+
+        <!-- MAIN GRID LAYOUT -->
+        <main class="app-content">
+            
+            <!-- LEFT PANEL: CUSTOMER CHAT INTERFACE -->
+            <section class="panel chat-panel" id="chat-section">
+                <div class="panel-header">
+                    <div class="header-title">
+                        <i data-lucide="message-square"></i>
+                        <h2>Customer Support Live Chat</h2>
+                    </div>
+                    <button class="btn btn-outline" id="clear-chat-btn" title="Reset Chat Session">
+                        <i data-lucide="rotate-ccw"></i> Reset
+                    </button>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Seed Welcome message -->
+                    <div class="message system-message">
+                        Welcome to Quantum Tech Co. customer support simulator. Say hello to start the conversation!
+                    </div>
+                    <div class="message agent-message">
+                        <div class="message-content">
+                            Hello! I am your Quantum Tech Support assistant. How can I help you today? If you have questions about returns, shipping, or order status, I'm happy to help.
+                        </div>
+                        <div class="message-meta">Agent • Just now</div>
+                    </div>
+                </div>
+
+                <!-- Typing indicator -->
+                <div class="typing-indicator-wrapper" id="typing-indicator">
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="typing-text">Agent is thinking...</span>
+                </div>
+                
+                <form class="chat-input-area" id="chat-form">
+                    <input type="text" id="chat-input" placeholder="Type your complaint or order query here..." required autocomplete="off">
+                    <button type="submit" class="btn btn-primary" id="send-btn">
+                        <span>Send</span>
+                        <i data-lucide="send"></i>
+                    </button>
+                </form>
+            </section>
+
+            <!-- RIGHT PANEL: DEVELOPER MONITOR & LOGS -->
+            <section class="panel dashboard-panel">
+                
+                <!-- Tab Headers -->
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="tab-db">
+                        <i data-lucide="database"></i> SQLite Database
+                    </button>
+                    <button class="tab-btn" data-tab="tab-logs">
+                        <i data-lucide="terminal"></i> Agent Reasoning Log <span class="badge" id="log-count">0</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab-rag">
+                        <i data-lucide="file-text"></i> PDF Knowledge Base (RAG)
+                    </button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="tabs-content">
+                    
+                    <!-- TAB 1: DATABASE VIEWER -->
+                    <div class="tab-pane active" id="tab-db">
+                        <div class="db-section">
+                            <div class="db-section-header">
+                                <h3><i data-lucide="shopping-bag"></i> Mock Orders Table</h3>
+                                <span class="db-tag font-mono">SELECT * FROM orders</span>
+                            </div>
+                            <div class="table-container">
+                                <table id="orders-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer Name</th>
+                                            <th>Email</th>
+                                            <th>Product</th>
+                                            <th>Status</th>
+                                            <th>Tracking No.</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td colspan="7" class="loading-cell">Loading orders...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="db-section">
+                            <div class="db-section-header">
+                                <h3><i data-lucide="ticket"></i> Live Filed Tickets</h3>
+                                <span class="db-tag font-mono">SELECT * FROM tickets</span>
+                            </div>
+                            <div class="table-container">
+                                <table id="tickets-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Customer Email</th>
+                                            <th>Subject</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td colspan="6" class="loading-cell">No tickets filed yet.</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: AGENT LOGS (FUNCTION CALL TRACE) -->
+                    <div class="tab-pane" id="tab-logs">
+                        <div class="log-info-box">
+                            <i data-lucide="info"></i>
+                            <p>This tab displays the Agent's decision path. You can see when the model decides to run database queries or search return policies before formulating its reply.</p>
+                        </div>
+                        <div class="logs-feed" id="logs-feed">
+                            <div class="empty-logs">
+                                <i data-lucide="activity"></i>
+                                <p>No tool execution logs yet. Send a message to see the agent reasoning in action.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: RAG MANAGEMENT -->
+                    <div class="tab-pane" id="tab-rag">
+                        <div class="rag-upload-grid">
+                            
+                            <div class="rag-info-panel">
+                                <h3>Knowledge Base System</h3>
+                                <p>Add documents (PDF format) to the system. They will be immediately parsed, chunked, and embedded into local RAM vectors for search access by the AI support agent.</p>
+                                
+                                <div class="upload-zone" id="upload-zone">
+                                    <i data-lucide="upload-cloud" class="upload-icon"></i>
+                                    <p>Drag and drop support policy PDFs here, or click to upload</p>
+                                    <input type="file" id="file-input" accept=".pdf" style="display: none;">
+                                    <div class="upload-status" id="upload-status"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="rag-files-panel">
+                                <h3>Current Documents</h3>
+                                <div class="rag-files-list" id="rag-files-list">
+                                    <!-- Populated dynamically or static indicators -->
+                                    <div class="rag-file-item">
+                                        <div class="file-icon"><i data-lucide="file-pdf"></i></div>
+                                        <div class="file-details">
+                                            <span class="file-name">refund_policy.pdf</span>
+                                            <span class="file-meta">Embedded • Ready</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>
