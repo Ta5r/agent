@@ -1,0 +1,7 @@
+google-genai
+fastapi
+uvicorn
+pypdf
+python-dotenv
+numpy
+python-multipart
