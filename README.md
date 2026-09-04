@@ -1,4 +1,4 @@
-# 🤖 Customer Support AI Agent & Developer Workspace
+# Customer Support AI Agent & Developer Workspace
 
 Welcome to the **Quantum Support Workspace**. This is an educational, interactive developer workspace demonstrating how to build your very first AI Agent. The agent is built using the new **Google GenAI SDK** (`google-genai`), integrated with a live **SQLite database** (simulating enterprise backend order lookup and ticket filing) and a local **PDF RAG (Retrieval-Augmented Generation)** knowledge base (simulating support policy documents).
 
@@ -6,7 +6,7 @@ The project features a **split-screen developer dashboard** that displays the in
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
 1. **Interactive Customer Chat UI**: A responsive, modern messaging interface simulating a customer interaction.
 2. **Agent Reasoning Log**: A real-time terminal showing the agent's decision loop—including which tools the agent chose, the argument payloads, and execution outputs.
@@ -16,7 +16,7 @@ The project features a **split-screen developer dashboard** that displays the in
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 agent/
@@ -38,7 +38,7 @@ agent/
 
 ---
 
-## 🛠️ Installation & Setup
+## Installation & Setup
 
 Ensure you have **Python 3.10+** installed. Follow these setup steps:
 
@@ -85,7 +85,7 @@ Open your browser and navigate to **[http://localhost:8000](http://localhost:800
 
 ---
 
-## 🧪 Testing Scenarios (Walkthrough)
+## Testing Scenarios (Walkthrough)
 
 Here are the scenarios you can use to test the workspace:
 
@@ -114,7 +114,7 @@ Here are the scenarios you can use to test the workspace:
 
 ---
 
-## 🔐 Security & Best Practices
+## Security & Best Practices
 The project includes a pre-configured `.gitignore` file that automatically prevents checking the following files into source control:
 * `.env` (contains your private Gemini API Key)
 * `data/support.db` (local SQLite database)
